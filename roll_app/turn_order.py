@@ -1,6 +1,4 @@
 
-order = list()
-
 
 def get_i(set_l, order_l):
     new = [int(v) if v.isnumeric() else v for v in set_l.split()]
@@ -12,6 +10,8 @@ def get_i(set_l, order_l):
     else:
         print("please enter exactly two arguments.")
 
+
+order = list()
 
 while True:
     set_i = input("add name and initiative, remove name, show or next: ")
