@@ -33,9 +33,9 @@ def get_data(filepath=FILEPATH):
     return data
 
 
-def get_order(set_l, order_l):
-    new = [int(v) if v.isnumeric() else v for v in set_l.split()]
-    new = [v.capitalize() if type(v) is str else v for v in new]
+def get_order(numb, name, order_l):
+    numb = int(numb)
+    new = numb, name
     order_l.append(new)
-    order_l = sorted(order_l, key=lambda pair: pair[1], reverse=True)
+    order_l = sorted(order_l, key=lambda pair: pair[0], reverse=True)
     return order_l
