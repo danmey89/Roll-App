@@ -1,4 +1,5 @@
 import random
+from csv import DictReader
 
 
 def roll(l_val, player):
@@ -16,3 +17,17 @@ def roll(l_val, player):
     else:
         result = ("Ergebnis für %s: %d" % (player["name"].capitalize(), m))
         return result
+
+
+FILEPATH = "data1.csv"
+
+
+def get_data(filepath=FILEPATH):
+    with open(filepath, "r") as f:
+        dict_reader = DictReader(f)
+        data = list(dict_reader)
+
+    for index, i in enumerate(data):
+        i = dict((k, int(v)) if v.isnumeric() else (k, v) for k, v in i.items())
+        data[index] = i
+    return data

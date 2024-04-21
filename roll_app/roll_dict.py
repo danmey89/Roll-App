@@ -1,14 +1,6 @@
-from csv import DictReader
-from functions import roll
+from functions import roll, get_data
 
-with open("data.csv", "r") as f:
-    dict_reader = DictReader(f)
-    data = list(dict_reader)
-
-for index, i in enumerate(data):
-    i = dict((k, int(v)) if v.isnumeric() else (k, v) for k, v in i.items())
-    data[index] = i
-
+data = get_data()
 
 while True:
     uval = input("Please enter modifier: ")

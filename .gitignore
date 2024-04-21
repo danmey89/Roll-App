@@ -1,0 +1,5 @@
+/roll_app/.venv/
+.idea
+convert csv german.py
+data.csv
+data.xlsx
