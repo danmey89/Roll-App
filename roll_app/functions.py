@@ -31,3 +31,11 @@ def get_data(filepath=FILEPATH):
         i = dict((k, int(v)) if v.isnumeric() else (k, v) for k, v in i.items())
         data[index] = i
     return data
+
+
+def get_order(set_l, order_l):
+    new = [int(v) if v.isnumeric() else v for v in set_l.split()]
+    new = [v.capitalize() if type(v) is str else v for v in new]
+    order_l.append(new)
+    order_l = sorted(order_l, key=lambda pair: pair[1], reverse=True)
+    return order_l
