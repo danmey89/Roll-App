@@ -1,6 +1,7 @@
 import random
-from csv import DictReader
 import json
+import os
+import glob
 
 
 # basic dice roll output
@@ -25,7 +26,7 @@ def roll(skill, player):
 
 
 # load character data from json, replaces csv load
-FILEPATH = "test_data\\all_characters.json"
+FILEPATH = "data\\all_characters.json"
 
 
 def get_data(filepath=FILEPATH):
@@ -52,7 +53,7 @@ def get_json(filepath):
 
 
 # Pathbuilder json to dict converter
-def get_character(file):
+def parse_character(file):
     trs = file
     trs = trs["build"]
     modifier_dict = get_json("test_data\\modifier_keyes.json")
@@ -112,3 +113,21 @@ def get_character(file):
             "abilities": abilities, "proficiencies": proficiencies}
 
     return char
+
+
+# update all characters from Pathbuilder json files
+SOURCE = "data/characters"
+
+
+def update_characters(source=SOURCE):
+    data = []
+
+    for filename in glob.glob(os.path.join(source, "*.txt")):
+        with open(os.path.join(os.getcwd(), filename), "r") as f:
+            stats = f.read()
+            stats = json.loads(stats)
+            char = parse_character(stats)
+            data.append(char)
+
+    with open("data\\all_characters.json", "w") as f:
+        json.dump(data, f)

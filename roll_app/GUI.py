@@ -1,4 +1,4 @@
-from functions import roll, get_data, get_order
+from functions import roll, get_data, get_order, update_characters
 import PySimpleGUI as sg
 
 sg.theme("Topanga")
@@ -30,10 +30,11 @@ next_button = sg.Button("Next")
 remove_button = sg.Button("Remove")
 clear_t_button = sg.Button("Clear", key="Clear_t")
 clear_r_button = sg.Button("Clear", key="Clear_r")
+update_button = sg.Button("Update all characters", key="update")
 
 col_1 = sg.Column([
     [label_sk],
-    [skill_list, sg.Column([[roll_button, clear_r_button], [results_list]])]
+    [skill_list, sg.Column([[roll_button, clear_r_button], [results_list], [update_button]])]
 ])
 
 col_2 = sg.Column([
@@ -97,6 +98,9 @@ while True:
         case "Clear_r":
             results.clear()
             window["result"].update(values=results)
+
+        case "update":
+            update_characters()
 
         case "Exit" | sg.WIN_CLOSED:
             break
