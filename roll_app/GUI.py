@@ -1,6 +1,8 @@
 from functions import roll, get_data, get_order
 import PySimpleGUI as sg
 
+sg.theme("Topanga")
+
 data = get_data()
 print(data)
 keyes = [k for k in data[0]["proficiencies"]]
@@ -16,7 +18,8 @@ label_nt = sg.Text("Enter new turn:")
 add_turn = sg.InputText(tooltip="Name", key="turn", do_not_clear=False, size=20)
 add_num = sg.InputText(tooltip="Number", key="num_t", do_not_clear=False, size=5)
 
-skill_list = sg.Listbox(values=keyes, key="skill", enable_events=True, size=(20, len(keyes)))
+skill_list = sg.Listbox(values=keyes, key="skill", enable_events=True, no_scrollbar=True,
+                        size=(20, len(keyes)))
 results_list = sg.Listbox(values=results, key="result", size=(45, 10))
 turn_order = sg.Listbox(values=order, key="order", enable_events=True, size=(30, 10))
 
@@ -42,7 +45,7 @@ col_2 = sg.Column([
 
 layout = [[col_1, sg.VerticalSeparator(), col_2]]
 
-window = sg.Window("roll App", layout)
+window = sg.Window("roll App", layout, font=("Helvetica", 14))
 
 while True:
     event, values = window.read()
@@ -51,10 +54,12 @@ while True:
     match event:
         case "Roll":
             try:
-                results.append(values["skill"])
+                results.append(values["skill"][0])
+                print(results)
                 for player in data:
                     results.append(roll(values["skill"][0], player))
                 window["result"].update(values=results)
+                window["result"].set_vscroll_position(1)
             except IndexError:
                 continue
 
@@ -65,6 +70,8 @@ while True:
                 order = get_order(number, turn, order)
                 window["order"].update(values=order)
             except IndexError:
+                continue
+            except ValueError:
                 continue
 
         case "Next":

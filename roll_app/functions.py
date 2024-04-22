@@ -9,17 +9,17 @@ def roll(skill, player):
     m = g + player["proficiencies"][skill][0]
 
     if g == 20:
-        result = ("%s, %s: %d Nat 20!!!" % (player["name"].capitalize(),
+        result = ("%s, %s, %d Nat 20!!!" % (player["name"].capitalize(),
                                             player["proficiencies"][skill][2], m))
         return result
 
     elif g == 1:
-        result = ("%s, %s: %d Nat 1!!!" % (player["name"].capitalize(),
+        result = ("%s, %s, %d Nat 1!!!" % (player["name"].capitalize(),
                                            player["proficiencies"][skill][2], m))
         return result
 
     else:
-        result = ("%s, %s: %d" % (player["name"].capitalize(),
+        result = ("%s, %s, %d" % (player["name"].capitalize(),
                                   player["proficiencies"][skill][2], m))
         return result
 
