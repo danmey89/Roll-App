@@ -1,6 +1,6 @@
 import os
 import glob
-from pathbuilder_dict import get_character
+from roll_app.legacy.pathbuilder_dict import get_character
 import json
 
 path = "test_data\\characters"

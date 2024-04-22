@@ -25,8 +25,10 @@ def roll(skill, player):
 
 
 # load character data from json, replaces csv load
+FILEPATH = "test_data\\all_characters.json"
 
-def get_data(filepath="test_data\\all_characters.json"):
+
+def get_data(filepath=FILEPATH):
     with open(filepath, "r") as f:
         data = json.loads(f.read())
     return data

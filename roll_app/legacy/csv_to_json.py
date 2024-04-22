@@ -1,6 +1,6 @@
 import json
 
-filepath = "test_data\\modifier_keyes.csv"
+filepath = "../test_data/modifier_keyes.csv"
 
 with open(filepath, "r") as f:
     data = f.readlines()
@@ -16,7 +16,7 @@ for index, i in enumerate(data):
 
 data = dict(data)
 
-with open("test_data\\modifier_keyes.json", "w") as f:
-    json.dump(data, f, sort_keys=True)
+with open("../test_data/modifier_keyes.json", "w") as f:
+    json.dump(data, f)
 
 print(data)
