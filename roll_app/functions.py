@@ -3,36 +3,32 @@ from csv import DictReader
 import json
 
 
-# basic dice roll output  changes needed
-def roll(l_val, player):
+# basic dice roll output
+def roll(skill, player):
     g = random.randrange(1, 21, 1)
-    m = g + player[l_val]
+    m = g + player["proficiencies"][skill][0]
 
     if g == 20:
-        result = ("Ergebnis für %s: %d Nat 20!!!" % (player["name"].capitalize(), m))
+        result = ("%s, %s: %d Nat 20!!!" % (player["name"].capitalize(),
+                                            player["proficiencies"][skill][2], m))
         return result
 
     elif g == 1:
-        result = ("Ergebnis für %s: %d Nat 1!!!" % (player["name"].capitalize(), m))
+        result = ("%s, %s: %d Nat 1!!!" % (player["name"].capitalize(),
+                                           player["proficiencies"][skill][2], m))
         return result
 
     else:
-        result = ("Ergebnis für %s: %d" % (player["name"].capitalize(), m))
+        result = ("%s, %s: %d" % (player["name"].capitalize(),
+                                  player["proficiencies"][skill][2], m))
         return result
 
 
-# load character data from csv  to be replaced
-FILEPATH = "data1.csv"
+# load character data from json, replaces csv load
 
-
-def get_data(filepath=FILEPATH):
+def get_data(filepath="test_data\\all_characters.json"):
     with open(filepath, "r") as f:
-        dict_reader = DictReader(f)
-        data = list(dict_reader)
-
-    for index, i in enumerate(data):
-        i = dict((k, int(v)) if v.isnumeric() else (k, v) for k, v in i.items())
-        data[index] = i
+        data = json.loads(f.read())
     return data
 
 
@@ -56,7 +52,6 @@ def get_json(filepath):
 # Pathbuilder json to dict converter
 def get_character(file):
     trs = file
-    print(type(trs))
     trs = trs["build"]
     modifier_dict = get_json("test_data\\modifier_keyes.json")
 

@@ -2,7 +2,8 @@ from functions import roll, get_data, get_order
 import PySimpleGUI as sg
 
 data = get_data()
-keyes = [k for k in data[0]][1:]
+print(data)
+keyes = [k for k in data[0]["proficiencies"]]
 results = []
 order = []
 
@@ -16,7 +17,7 @@ add_turn = sg.InputText(tooltip="Name", key="turn", do_not_clear=False, size=20)
 add_num = sg.InputText(tooltip="Number", key="num_t", do_not_clear=False, size=5)
 
 skill_list = sg.Listbox(values=keyes, key="skill", enable_events=True, size=(20, len(keyes)))
-results_list = sg.Listbox(values=results, key="result", size=(30, len(data)*2))
+results_list = sg.Listbox(values=results, key="result", size=(45, 10))
 turn_order = sg.Listbox(values=order, key="order", enable_events=True, size=(30, 10))
 
 roll_button = sg.Button("Roll")
