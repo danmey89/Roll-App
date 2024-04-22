@@ -1,5 +1,6 @@
 import random
 from csv import DictReader
+import json
 
 
 def roll(l_val, player):
@@ -39,3 +40,10 @@ def get_order(numb, name, order_l):
     order_l.append(new)
     order_l = sorted(order_l, key=lambda pair: pair[0], reverse=True)
     return order_l
+
+
+def get_json(filepath):
+    with open(filepath, "r") as f:
+        stats = f.read()
+        stats = json.loads(stats)
+        return stats
