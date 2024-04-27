@@ -1,5 +1,6 @@
 from functions import roll, get_data, get_order, update_characters
 import PySimpleGUI as sg
+import tkinter
 
 sg.theme("Topanga")
 
