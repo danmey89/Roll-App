@@ -56,7 +56,7 @@ def get_json(filepath):
 def parse_character(file):
     trs = file
     trs = trs["build"]
-    modifier_dict = get_json("test_data\\modifier_keyes.json")
+    modifier_dict = get_json("data/modifier_keyes.json")
 
     abilities = {'str': trs["abilities"]['str'], 'dex': trs["abilities"]['dex'],
                  'con': trs["abilities"]['con'], 'int': trs["abilities"]['int'],
@@ -129,5 +129,5 @@ def update_characters(source=SOURCE):
             char = parse_character(stats)
             data.append(char)
 
-    with open("data\\all_characters.json", "w") as f:
+    with open("data/all_characters.json", "w") as f:
         json.dump(data, f)
