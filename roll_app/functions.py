@@ -130,3 +130,12 @@ def update_characters():
 
     with open(os.path.join("data", "all_characters.json"), "w") as f:
         json.dump(data, f)
+
+
+def get_labels(data):
+    characters = []
+    for char in data:
+        label = "%s: level %i %s\n" % (char['name'], char['level'], char['class'])
+        characters.append(label)
+
+    return characters

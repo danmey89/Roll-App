@@ -1,20 +1,36 @@
-from functions import roll, get_data, get_order, update_characters
+from functions import roll, get_data, get_order, update_characters, get_labels
 import PySimpleGUI as sg
+import json
 
 
 sg.theme("DarkAmber")
 
-data = get_data()
-print(data)
-keys = [k for k in data[0]["proficiencies"]]
+try:
+    data = get_data()
+except FileNotFoundError:
+    update_characters()
+    data = get_data()
+except json.decoder.JSONDecodeError:
+    update_characters()
+    data = get_data()
+
+try:
+    keys = [k for k in data[0]["proficiencies"]]
+    characters = [k for k in get_labels(data)]
+except IndexError:
+    update_characters()
+    data = get_data()
+    keys = [k for k in data[0]["proficiencies"]]
+    characters = [k for k in get_labels(data)]
+
 results = []
 order = []
 
-print(keys)
 
 label_sk = sg.Text("Skills:")
 label_to = sg.Text("Turn Order:")
 label_nt = sg.Text("Enter new turn:")
+label_ch = sg.Text("Characters")
 
 add_turn = sg.InputText(tooltip="Name", key="turn", do_not_clear=False, size=20)
 add_num = sg.InputText(tooltip="Number", key="num_t", do_not_clear=False, size=5)
@@ -33,9 +49,12 @@ clear_t_button = sg.Button("Clear", key="Clear_t")
 clear_r_button = sg.Button("Clear", key="Clear_r")
 update_button = sg.Button("Update all characters", key="update")
 
+char_list_l = [[sg.Text(ch)] for ch in characters]
+char_list = sg.Frame('Characters', char_list_l)
+
 col_1 = sg.Column([
     [label_sk],
-    [skill_list, sg.Column([[roll_button, clear_r_button], [results_list], [update_button]])]
+    [skill_list, sg.Column([[char_list], [roll_button, clear_r_button], [results_list], [update_button]])]
 ])
 
 col_2 = sg.Column([
@@ -47,17 +66,14 @@ col_2 = sg.Column([
 
 layout = [[col_1, sg.VerticalSeparator(), col_2]]
 
-window = sg.Window("roll App", layout, font=("Helvetica", 14))
+window = sg.Window("Game Mastery App", layout, font=("Helvetica", 14))
 
 while True:
     event, values = window.read()
-    print(event)
-    print(values)
     match event:
         case "Roll":
             try:
                 results.append(values["skill"][0])
-                print(results)
                 for player in data:
                     results.append(roll(values["skill"][0], player))
                 window["result"].update(values=results)
