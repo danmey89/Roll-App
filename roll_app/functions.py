@@ -26,7 +26,7 @@ def roll(skill, player):
 
 
 # load character data from json, replaces csv load
-FILEPATH = "data/all_characters.json"
+FILEPATH = os.path.join("data", "all_characters.json")
 
 
 def get_data(filepath=FILEPATH):
@@ -56,7 +56,7 @@ def get_json(filepath):
 def parse_character(file):
     trs = file
     trs = trs["build"]
-    modifier_dict = get_json("data/modifier_keyes.json")
+    modifier_dict = get_json(os.path.join("data","modifier_keyes.json"))
 
     abilities = {'str': trs["abilities"]['str'], 'dex': trs["abilities"]['dex'],
                  'con': trs["abilities"]['con'], 'int': trs["abilities"]['int'],
@@ -116,18 +116,17 @@ def parse_character(file):
 
 
 # update all characters from Pathbuilder json files
-SOURCE = "data/characters"
 
 
-def update_characters(source=SOURCE):
+def update_characters():
     data = []
 
-    for filename in glob.glob(os.path.join(source, "*.txt")):
+    for filename in glob.glob(os.path.join("data", "characters" "*.txt")):
         with open(os.path.join(os.getcwd(), filename), "r") as f:
             stats = f.read()
             stats = json.loads(stats)
             char = parse_character(stats)
             data.append(char)
 
-    with open("data/all_characters.json", "w") as f:
+    with open(os.path.join("data", "all_characters.json"), "w") as f:
         json.dump(data, f)
