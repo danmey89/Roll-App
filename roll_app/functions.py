@@ -56,7 +56,7 @@ def get_json(filepath):
 def parse_character(file):
     trs = file
     trs = trs["build"]
-    modifier_dict = get_json(os.path.join("data","modifier_keyes.json"))
+    modifier_dict = get_json(os.path.join("data", "modifier_keyes.json"))
 
     abilities = {'str': trs["abilities"]['str'], 'dex': trs["abilities"]['dex'],
                  'con': trs["abilities"]['con'], 'int': trs["abilities"]['int'],
@@ -121,7 +121,7 @@ def parse_character(file):
 def update_characters():
     data = []
 
-    for filename in glob.glob(os.path.join("data", "characters" "*.txt")):
+    for filename in glob.glob(os.path.join("data", "characters", "*.txt")):
         with open(os.path.join(os.getcwd(), filename), "r") as f:
             stats = f.read()
             stats = json.loads(stats)

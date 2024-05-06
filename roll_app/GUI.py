@@ -6,11 +6,11 @@ sg.theme("DarkAmber")
 
 data = get_data()
 print(data)
-keyes = [k for k in data[0]["proficiencies"]]
+keys = [k for k in data[0]["proficiencies"]]
 results = []
 order = []
 
-print(keyes)
+print(keys)
 
 label_sk = sg.Text("Skills:")
 label_to = sg.Text("Turn Order:")
@@ -19,8 +19,8 @@ label_nt = sg.Text("Enter new turn:")
 add_turn = sg.InputText(tooltip="Name", key="turn", do_not_clear=False, size=20)
 add_num = sg.InputText(tooltip="Number", key="num_t", do_not_clear=False, size=5)
 
-skill_list = sg.Listbox(values=keyes, key="skill", enable_events=True, no_scrollbar=True,
-                        size=(20, len(keyes)))
+skill_list = sg.Listbox(values=keys, key="skill", enable_events=True, no_scrollbar=True,
+                        size=(20, len(keys)))
 results_list = sg.Listbox(values=results, key="result", size=(45, 10))
 turn_order = sg.Listbox(values=order, key="order", enable_events=True, size=(30, 10))
 
